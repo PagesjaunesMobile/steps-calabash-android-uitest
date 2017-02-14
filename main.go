@@ -21,6 +21,7 @@ type ConfigsModel struct {
 	WorkDir     string
 	GemFilePath string
 	ApkPath     string
+	Target      string
 
 	AndroidHome string
 
@@ -32,6 +33,7 @@ func createConfigsModelFromEnvs() ConfigsModel {
 		WorkDir:     os.Getenv("work_dir"),
 		GemFilePath: os.Getenv("gem_file_path"),
 		ApkPath:     os.Getenv("apk_path"),
+		Target:      os.Getenv("target"),
 
 		AndroidHome: os.Getenv("android_home"),
 
@@ -437,6 +439,10 @@ func main() {
 		}
 
 		runArgs = append(runArgs, "run", configs.ApkPath)
+		runArgs = append(runArgs, "-p", "android")
+		if configs.Target != "" {
+			runArgs = append(runArgs, "-t", configs.Target)
+		}
 
 		runCmd, err := rubycommand.NewFromSlice(runArgs...)
 		if err != nil {

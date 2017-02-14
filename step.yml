@@ -55,6 +55,13 @@ inputs:
         Use an APK, which not built using Shared mono runtime (_Shared mono runtime is enabled by default in DEBUG builds_).
       is_required: true
       is_expand: true
+  - target: $CALABASH_TARGET
+    opts:
+      title: calababash filter
+      description: |
+        tags @
+      is_required: false
+      is_expand: true
   - android_home: $ANDROID_HOME
     opts:
       title: Android Home Directory

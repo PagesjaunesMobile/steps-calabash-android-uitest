@@ -5,10 +5,9 @@ app:
   envs:
   - RELEASE_VERSION: 1.1.0
   
-  - SAMPLE_APP_URL: https://github.com/bitrise-samples/sample-apps-xamarin-cross-platform.git
-  - BITRISE_PROJECT_PATH: Multiplatform.sln
-  - BITRISE_XAMARIN_CONFIGURATION: Release
-  - BITRISE_XAMARIN_PLATFORM: Any CPU
+  - SAMPLE_APP_URL: https://github.com/PagesjaunesMobile/calabash-experiment.git
+  - BITRISE_PROJECT_PATH: .
+
 
 workflows:
   test:
@@ -38,20 +37,14 @@ workflows:
         - branch: "master"
         - pull_request_id: ""
         - clone_depth: ""
-    - nuget-restore:
-    - xamarin-archive:
-        inputs:
-        - project_type_whitelist: android
+#    - nuget-restore:
+
     - path::./:
         title: Step Test
         inputs:
-        - work_dir: Droid
-        - apk_path: $BITRISE_APK_PATH
-    - script:
-        is_always_run: true
-        inputs:
-        - content: |-
-            echo "BITRISE_XAMARIN_TEST_RESULT: $BITRISE_XAMARIN_TEST_RESULT"
+        - work_dir: .
+        - apk_path: $work_dir/prebuilt/Android-debug.apk
+        - target: "@lite"
 
   go-tests:
     before_run:
